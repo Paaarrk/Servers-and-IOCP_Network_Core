@@ -1,45 +1,45 @@
 # Servers-and-IOCP_Network_Core
-IOCP기반 네트워크 코어
- -> _Interlocked계열 원자 연산을 활용한 세션 핸들링
- -> lock-free 자료구조 사용 (queue, stack, tls memory pool)
- -> 각 서버는 일주일간 안정적으로 동작 [서버 안정성 테스트 결과](./server_7days_result/result.md)
+IOCP기반 네트워크 코어 <br>
+ -> _Interlocked계열 원자 연산을 활용한 세션 핸들링 <br>
+ -> lock-free 자료구조 사용 (queue, stack, tls memory pool) <br>
+ -> 각 서버는 일주일간 안정적으로 동작 [[서버 안정성 테스트 결과]](./server_7days_result/result.md)
 
 
 # Core
-: 자료 구조들을 모아둔 라이브러리 
+자료 구조들을 모아둔 라이브러리 <br>
   (락프리 큐, 스택, TLS 객체 풀, 프로파일러, 타이머, 로거)
-## 대표 구조
-< 락프리 큐 >
-Core/Core/include/LockFreeQueue.hpp
+### 대표 구조
+< 락프리 큐 > <br>
+[Core/Core/include/LockFreeQueue.hpp](./Core/Core/include/LockFreeQueue.hpp)
 
-< 락프리 스택 >
-Core/Core/include/LockFreeStack.hpp
+< 락프리 스택 > <br>
+[Core/Core/include/LockFreeStack.hpp](./Core/Core/include/LockFreeStack.hpp)
 
-< TLS 메모리 풀 >
-Core/Core/include/TlsObjectPool_IntrusiveList.hpp
+< TLS 메모리 풀 > <br>
+[Core/Core/include/TlsObjectPool_IntrusiveList.hpp](./Core/Core/include/TLSObjectPool_IntrusiveList.hpp)
 
 
 # NetLibrary
-: IOCP 넷코어 라이브러리
+IOCP 넷코어 라이브러리 <br>
   (네트워크 서버, 클라이언트, 세션, 참조 기반 직렬화 버퍼, 컨텐츠 단위(Zone))
-## 대표 구조
-< 참조 기반 직렬화 버퍼 >
-NetLibrary/NetLibrary/include/TlsPacket.hpp
+### 대표 구조
+< 참조 기반 직렬화 버퍼 > <br>
+[NetLibrary/NetLibrary/include/TlsPacket.hpp](./NetLibrary/NetLibrary/include/TlsPacket.hpp)
 
-< 서버 >
-NetLibrary/NetLibrary/include/ZoneServer.h
-NetLibrary/NetLibrary/src/ZoneServer.cpp
+< 서버 > <br>
+[NetLibrary/NetLibrary/include/ZoneServer.h](./NetLibrary/NetLibrary/include/ZoneServer.h) <br>
+[NetLibrary/NetLibrary/src/ZoneServer.cpp](./NetLibrary/NetLibrary/src/ZoneServer.cpp)
 
-< 세션 >
-NetLibrary/NetLibrary/include/ZoneSession.h
-NetLibrary/NetLibrary/src/ZoneSession.cpp
+< 세션 > <br>
+[NetLibrary/NetLibrary/include/ZoneSession.h](./NetLibrary/NetLibrary/include/ZoneSession.h) <br>
+[NetLibrary/NetLibrary/src/ZoneSession.cpp](./NetLibrary/NetLibrary/src/ZoneSession.cpp)
 
-< 컨텐츠 단위 (Zone) >
-NetLibrary/NetLibrary/include/ZoneManager.h
-NetLibrary/NetLibrary/src/ZoneManager.cpp
-NetLibrary/NetLibrary/include/Zone.h
-NetLibrary/NetLibrary/src/Zone.cpp
-NetLibrary/NetLibrary/include/ZoneType.h
+< 컨텐츠 단위 (Zone) > <br>
+[NetLibrary/NetLibrary/include/ZoneManager.h](./NetLibrary/NetLibrary/include/ZoneManager.h) <br>
+[NetLibrary/NetLibrary/src/ZoneManager.cpp](./NetLibrary/NetLibrary/src/ZoneManager.cpp) <br>
+[NetLibrary/NetLibrary/include/Zone.h](./NetLibrary/NetLibrary/include/Zone.h) <br>
+[NetLibrary/NetLibrary/src/Zone.cpp](./NetLibrary/NetLibrary/src/Zone.cpp) <br>
+[NetLibrary/NetLibrary/include/ZoneType.h](./NetLibrary/NetLibrary/include/ZoneType.h)
 
 ## 특징
 * 세션
@@ -66,12 +66,17 @@ NetLibrary/NetLibrary/include/ZoneType.h
 # Requirements
 - Visual Studio 2022
 - Redis
-- MySQL 8.0
+- MySQL 8.0 <br>
+(각 서버 include 내부에 lib, dll있음)
 
 # Builds
+
+```
 Server  /
     ├ Config     /Config.cnf                 <모두 필요>
     ├ Login      /LoginServer.exe            <채팅의 로그인 서버>
     ├ Chat       /ChatServer.exe             <채팅 서버>
     ├ Monitor    /MonitorServer.exe          <종합 모니터링 서버>
     └ ZoneEcho   /ZoneEchoServerTest.exe     <Zone 기능 테스트용 에코 서버>
+
+```
