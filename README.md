@@ -72,6 +72,7 @@ IOCP 넷코어 라이브러리 <br>
 # Builds
 
 ```
+Release O0 (inline만 허용(O1)) / C++17 
 Server  /
     ├ Config     /Config.cnf                 <모두 필요>
     ├ Login      /LoginServer.exe            <채팅의 로그인 서버>

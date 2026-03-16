@@ -6,6 +6,7 @@
 #include "ChatServerV3.h"
 #include "logclassV1.h"
 #include "TlsPacket.hpp"
+#include <charconv>
 
 using Log = Core::c_syslog;
 thread_local cpp_redis::client* CAuthContainer::tls_redis_client;

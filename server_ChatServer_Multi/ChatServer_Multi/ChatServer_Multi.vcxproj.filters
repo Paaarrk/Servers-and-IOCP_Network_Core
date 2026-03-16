@@ -69,9 +69,6 @@
     <ClCompile Include="AuthContainer.cpp">
       <Filter>소스 파일\DB</Filter>
     </ClCompile>
-    <ClCompile Include="AuthContainer.h">
-      <Filter>헤더 파일\DB</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="21_TextParser.h">
@@ -91,6 +88,9 @@
     </ClInclude>
     <ClInclude Include="ChatServerV3.h">
       <Filter>헤더 파일\Server</Filter>
+    </ClInclude>
+    <ClInclude Include="AuthContainer.h">
+      <Filter>헤더 파일\DB</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
