@@ -19,102 +19,120 @@
     <Filter Include="헤더 파일\NetLibraryH">
       <UniqueIdentifier>{411a256f-8f5c-4eda-8bb3-0c1bbcafa5ea}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\NetLibraryCpp\DB">
+      <UniqueIdentifier>{0c94a59a-86af-47aa-8872-74edde5fe24d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\NetLibraryCpp\Data Structure">
+      <UniqueIdentifier>{97e5a716-c08d-4c00-a507-c534ac9fe597}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\NetLibraryCpp\Tools">
+      <UniqueIdentifier>{ed85fdd7-7837-46f0-86c8-243c210b9cdf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Parser">
+      <UniqueIdentifier>{e32b703e-e107-41db-95f1-d52a6c06c356}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Server">
+      <UniqueIdentifier>{3ccff6ab-ae73-4c9c-9ea1-4a38ba6f0e73}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\NetLibraryH\Tools">
+      <UniqueIdentifier>{9bd4ec22-af82-48fa-8bb5-daa050331854}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\NetLibraryH\Data Structure">
+      <UniqueIdentifier>{1269500a-570c-47a4-8bef-2fe29c659b74}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\NetLibraryH\DB">
+      <UniqueIdentifier>{d3f294a8-938e-493d-933f-cb80a02996e2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\Parser">
+      <UniqueIdentifier>{51b5570a-3985-4cf6-83ed-e2df11647f9f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\Server">
+      <UniqueIdentifier>{13c8c7e6-d594-48c6-bcee-af50aa3f305c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\Protocol">
+      <UniqueIdentifier>{755d01d1-bae9-4ae2-944b-62050ef173e3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="_main.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="NetLibraryV8\DBConnector.cpp">
-      <Filter>소스 파일\NetLibraryCpp</Filter>
-    </ClCompile>
-    <ClCompile Include="NetLibraryV8\LockFreeQueueV5.cpp">
-      <Filter>소스 파일\NetLibraryCpp</Filter>
-    </ClCompile>
-    <ClCompile Include="NetLibraryV8\LockFreeStackV3.cpp">
-      <Filter>소스 파일\NetLibraryCpp</Filter>
-    </ClCompile>
-    <ClCompile Include="NetLibraryV8\logclassV1.cpp">
-      <Filter>소스 파일\NetLibraryCpp</Filter>
-    </ClCompile>
-    <ClCompile Include="NetLibraryV8\MonitorV1.cpp">
-      <Filter>소스 파일\NetLibraryCpp</Filter>
-    </ClCompile>
     <ClCompile Include="NetLibraryV8\NetlibV8.cpp">
       <Filter>소스 파일\NetLibraryCpp</Filter>
     </ClCompile>
+    <ClCompile Include="NetLibraryV8\DBConnector.cpp">
+      <Filter>소스 파일\NetLibraryCpp\DB</Filter>
+    </ClCompile>
+    <ClCompile Include="NetLibraryV8\LockFreeQueueV5.cpp">
+      <Filter>소스 파일\NetLibraryCpp\Data Structure</Filter>
+    </ClCompile>
+    <ClCompile Include="NetLibraryV8\LockFreeStackV3.cpp">
+      <Filter>소스 파일\NetLibraryCpp\Data Structure</Filter>
+    </ClCompile>
     <ClCompile Include="NetLibraryV8\ProfilerV2.cpp">
-      <Filter>소스 파일\NetLibraryCpp</Filter>
+      <Filter>소스 파일\NetLibraryCpp\Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="NetLibraryV8\logclassV1.cpp">
+      <Filter>소스 파일\NetLibraryCpp\Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="NetLibraryV8\MonitorV1.cpp">
+      <Filter>소스 파일\NetLibraryCpp\Tools</Filter>
     </ClCompile>
     <ClCompile Include="NetLibraryV8\TlsPacketV4.cpp">
-      <Filter>소스 파일\NetLibraryCpp</Filter>
-    </ClCompile>
-    <ClCompile Include="NetLibraryV8\TraceV1.cpp">
-      <Filter>소스 파일\NetLibraryCpp</Filter>
+      <Filter>소스 파일\NetLibraryCpp\Data Structure</Filter>
     </ClCompile>
     <ClCompile Include="21_TextParser.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="MonitoringServer.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>소스 파일\Parser</Filter>
     </ClCompile>
     <ClCompile Include="Connections.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>소스 파일\Server</Filter>
+    </ClCompile>
+    <ClCompile Include="MonitoringServer.cpp">
+      <Filter>소스 파일\Server</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="NetLibraryV8\_CrashDump.h">
-      <Filter>헤더 파일\NetLibraryH</Filter>
-    </ClInclude>
-    <ClInclude Include="NetLibraryV8\DBConnector.h">
-      <Filter>헤더 파일\NetLibraryH</Filter>
-    </ClInclude>
-    <ClInclude Include="NetLibraryV8\DBFormat.h">
-      <Filter>헤더 파일\NetLibraryH</Filter>
-    </ClInclude>
-    <ClInclude Include="NetLibraryV8\LockFreeFreeListV2.h">
-      <Filter>헤더 파일\NetLibraryH</Filter>
-    </ClInclude>
-    <ClInclude Include="NetLibraryV8\LockFreeQueueV5.h">
-      <Filter>헤더 파일\NetLibraryH</Filter>
-    </ClInclude>
-    <ClInclude Include="NetLibraryV8\LockFreeStackV3.h">
-      <Filter>헤더 파일\NetLibraryH</Filter>
-    </ClInclude>
-    <ClInclude Include="NetLibraryV8\logclassV1.h">
-      <Filter>헤더 파일\NetLibraryH</Filter>
-    </ClInclude>
-    <ClInclude Include="NetLibraryV8\MonitorV1.h">
-      <Filter>헤더 파일\NetLibraryH</Filter>
-    </ClInclude>
     <ClInclude Include="NetLibraryV8\NetlibV8.h">
       <Filter>헤더 파일\NetLibraryH</Filter>
     </ClInclude>
+    <ClInclude Include="NetLibraryV8\_CrashDump.h">
+      <Filter>헤더 파일\NetLibraryH\Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="NetLibraryV8\logclassV1.h">
+      <Filter>헤더 파일\NetLibraryH\Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="NetLibraryV8\MonitorV1.h">
+      <Filter>헤더 파일\NetLibraryH\Tools</Filter>
+    </ClInclude>
     <ClInclude Include="NetLibraryV8\ProfilerV2.h">
-      <Filter>헤더 파일\NetLibraryH</Filter>
-    </ClInclude>
-    <ClInclude Include="NetLibraryV8\RingBufferV4.h">
-      <Filter>헤더 파일\NetLibraryH</Filter>
-    </ClInclude>
-    <ClInclude Include="NetLibraryV8\TLSObjectPool_Array_V1.h">
-      <Filter>헤더 파일\NetLibraryH</Filter>
+      <Filter>헤더 파일\NetLibraryH\Tools</Filter>
     </ClInclude>
     <ClInclude Include="NetLibraryV8\TLSObjectPool_IntrusiveList_V2.h">
-      <Filter>헤더 파일\NetLibraryH</Filter>
+      <Filter>헤더 파일\NetLibraryH\Data Structure</Filter>
+    </ClInclude>
+    <ClInclude Include="NetLibraryV8\LockFreeQueueV5.h">
+      <Filter>헤더 파일\NetLibraryH\Data Structure</Filter>
+    </ClInclude>
+    <ClInclude Include="NetLibraryV8\LockFreeStackV3.h">
+      <Filter>헤더 파일\NetLibraryH\Data Structure</Filter>
+    </ClInclude>
+    <ClInclude Include="NetLibraryV8\DBConnector.h">
+      <Filter>헤더 파일\NetLibraryH\DB</Filter>
     </ClInclude>
     <ClInclude Include="NetLibraryV8\TlsPacketV4.h">
-      <Filter>헤더 파일\NetLibraryH</Filter>
-    </ClInclude>
-    <ClInclude Include="CommonProtocol.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>헤더 파일\NetLibraryH\Data Structure</Filter>
     </ClInclude>
     <ClInclude Include="21_TextParser.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="MonitoringServer.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>헤더 파일\Parser</Filter>
     </ClInclude>
     <ClInclude Include="Connections.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>헤더 파일\Server</Filter>
+    </ClInclude>
+    <ClInclude Include="MonitoringServer.h">
+      <Filter>헤더 파일\Server</Filter>
+    </ClInclude>
+    <ClInclude Include="CommonProtocol.h">
+      <Filter>헤더 파일\Protocol</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

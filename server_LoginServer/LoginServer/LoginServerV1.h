@@ -57,17 +57,6 @@ private:
 	std::vector<in_addr> _whiteList;
 };
 
-// class CBlackList
-// {
-// public:
-// 	struct stBlackIp
-// 	{
-// 		in_addr ip;
-// 		DWORD expireTime;	//만료 시간
-// 	};
-// private:
-// 	std::unordred_map<in_addr, > _blackList;
-// };
 
 class CLoginServerMonitoringJob : public Core::CTimerJob
 {
@@ -161,7 +150,6 @@ public:
 	virtual void OnWorkerStart();
 	virtual void OnWorkerEnd();
 	virtual void OnUserEvent(Net::CPacket* pPacket);
-	//virtual void OnSend(uint64_t sessionId, bool isValid);
 
 	CLoginServer() :_useWhite(1), _hEventTimeoutCheckThread(NULL), 
 		_hEventForExit(NULL), _maxUser(0), _timeoutOff(0)
@@ -204,17 +192,17 @@ public:
 
 	stLoginServerOpt& GetOption() { return _option; }
 private:
-	bool _useWhite;
-	int _maxUser;
-	HANDLE _hEventTimeoutCheckThread;
-	HANDLE _hEventForExit;
-	std::thread _timeoutCheckThread;
+	bool					_useWhite;
+	int						_maxUser;
+	HANDLE					_hEventTimeoutCheckThread;
+	HANDLE					_hEventForExit;
+	std::thread				_timeoutCheckThread;
 	std::shared_ptr<CLoginServerMonitoringJob> _monitoringJob;
-	CWhiteList _whiteList;
-	std::atomic_bool _timeoutOff;
-	stLoginServerOpt _option;
-	CRedisConnector _redisConn;
-	CTlsMySqlConnector _mysqlConn;
+	CWhiteList				_whiteList;
+	std::atomic_bool		_timeoutOff;
+	stLoginServerOpt		_option;
+	CRedisConnector			_redisConn;
+	CTlsMySqlConnector		_mysqlConn;
 };
 
 

@@ -62,9 +62,8 @@ void CServer::Session::Clear()
 		s_ServerSyslog.LogEx(TAG_NET, closeErr, c_syslog::en_ERROR, L"[sessionId: %016llx] 소켓 종료 오류(소켓 핸들: %016llx)", sessionId, sock);
 	}
 	sock = INVALID_SOCKET;
-	sessionId = 0; // disconnect flag 알아서 0됨
+	sessionId = 0; 
 	CPACKET_FREE(recvQ);
-	// sendQ.Clear();
 	//---------------------------------------------------
 	// 센드큐는 직접 비우자..
 	//---------------------------------------------------
@@ -273,17 +272,17 @@ bool CServer::Session::RecvPost()
 }
 
 //-------------------------------------------------------
-	// . false: refcount를 내려야되면(완료 통지가 안와서)
-	//                               + 내부에서 올려서 내려야함
-	// . true: IOCP 완료통지에서 내려야한다!
-	// 
-	// . 자신의 IO요청은 자기가 직접 필요시 해제
-	// 
-	// . 반드시 외부에서 참조카운트가 올라간 상태로 진입
-	// . 반드시 isSending = 1로 만들었을 경우만 진입
-	// . => 반드시 외부에서 isDisconnect == 0 확인하고 진입해라
-	// . false반환시 disconnect플래그 필요하면 올려둠
-	//-------------------------------------------------------
+// . false: refcount를 내려야되면(완료 통지가 안와서)
+//                               + 내부에서 올려서 내려야함
+// . true: IOCP 완료통지에서 내려야한다!
+// 
+// . 자신의 IO요청은 자기가 직접 필요시 해제
+// 
+// . 반드시 외부에서 참조카운트가 올라간 상태로 진입
+// . 반드시 isSending = 1로 만들었을 경우만 진입
+// . => 반드시 외부에서 isDisconnect == 0 확인하고 진입해라
+// . false반환시 disconnect플래그 필요하면 올려둠
+//-------------------------------------------------------
 bool CServer::Session::SendPost()
 {
 	WSABUF wsabufs[SERVER_SEND_WSABUF_MAX];
@@ -386,17 +385,12 @@ TRY_SEND:
 		//-----------------------------------------------
 		// 보낼게 없음
 		//-----------------------------------------------
-		//s_ServerSyslog.Log(TAG_NET, c_syslog::en_ERROR, L"[sessionId: %016llx] (i == 0인 경우) 왜 나올까...?", sessionId);
-		//__debugbreak();
 		_InterlockedExchange(&isSending, 0);
-		//if ((refcount & SERVER_RELEASE_FLAG) == SERVER_RELEASE_FLAG)
-		//	s_ServerSyslog.Log(TAG_NET, c_syslog::en_ERROR, L"[sessionId: %016llx] (i == 0인이유가 릴리즈..? 되면 안되는데)", refcount);
 		if (sendQ.isEmpty())
 		{
 			//------------------------------------------
 			// 진짜 빈거, 외부에서 참조카운트 내려야함
 			//------------------------------------------
-			// return 1;
 			return false;
 		}
 		else
@@ -413,7 +407,6 @@ TRY_SEND:
 					// 끊어야 되는애라 보낼 이유 X
 					//------------------------------------
 					_InterlockedExchange(&isSending, 0);
-					// return 2;
 					return false;
 				}
 				else
@@ -490,7 +483,7 @@ TRY_SEND:
 			CancelIoEx((HANDLE)sock, &recvOl.ol);
 
 			_InterlockedExchange(&isSending, 0);
-			// return 2;
+			
 			return false;
 		}
 		else
@@ -522,7 +515,7 @@ TRY_SEND:
 			// 외부에서 _InterlockedDecremnet유도
 			// 여기에서 ReleaseSession 호출이 안됨
 			//-----------------------------------------------
-			// return 1;
+			
 			return false;
 		}
 		//-----------------------------------------------
@@ -533,7 +526,7 @@ TRY_SEND:
 			//-------------------------------------------
 			// 세션이 바뀌었으니 외부에 _InterDec 요청
 			//-------------------------------------------
-			// return 1;
+			
 			return false;
 		}
 		//-----------------------------------------------
@@ -543,11 +536,11 @@ TRY_SEND:
 		//-----------------------------------------------
 		// 일단 내부에서 올린 인터락 해제 해줄 주체가 필요
 		//-----------------------------------------------
-		// return 1;
+		
 		return false;
 	}
 
-	// return 0;
+	
 	return true;
 }
 
@@ -1053,7 +1046,7 @@ bool CServer::SendPacket(uint64_t sessionId, CPacket* pPacket)
 			s_ServerSyslog.Log(TAG_NET, c_syslog::en_ERROR, L"패킷 반환중 오류, 패킷 클래스에 문제가 있습니다. (CPacket Free Error Code: %d)", retFree);
 			__debugbreak();
 		}
-		// return 2;
+		
 		return true;
 	}
 
@@ -1070,7 +1063,7 @@ bool CServer::SendPacket(uint64_t sessionId, CPacket* pPacket)
 			s_ServerSyslog.Log(TAG_NET, c_syslog::en_ERROR, L"패킷 반환중 오류, 패킷 클래스에 문제가 있습니다. (CPacket Free Error Code: %d)", retFree);
 			__debugbreak();
 		}
-		// return -1;
+		
 		return false;
 	}
 
@@ -1108,7 +1101,7 @@ bool CServer::SendPacket(uint64_t sessionId, CPacket* pPacket)
 			if (retNum == 0xFFFF'FFFF)
 				__debugbreak();
 		}
-		// return 0;
+		
 		return true;
 	}
 	//---------------------------------------------------
@@ -1140,7 +1133,7 @@ bool CServer::SendPacket(uint64_t sessionId, CPacket* pPacket)
 			if (retNum == 0xFFFF'FFFF)
 				__debugbreak();
 		}
-		// return 0;
+		
 		return true;
 	}
 
@@ -1176,7 +1169,7 @@ bool CServer::SendPacket(uint64_t sessionId, CPacket* pPacket)
 			if (retNum == 0xFFFF'FFFF)
 				__debugbreak();
 		}
-		// return 1;
+		
 		return true;
 	}
 

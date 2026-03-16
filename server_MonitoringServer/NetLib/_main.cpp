@@ -76,15 +76,11 @@ int main()
 		swprintf_s(buffer + wcslen(buffer), 5000 - wcslen(buffer), L" Queue Size: %d\n", g_connectServer.DBQueueSize());
 
 		swprintf_s(buffer + wcslen(buffer), 5000 - wcslen(buffer), L"[풀 관련]------------------------------------------------------ \n");
-		//swprintf_s(_buffer + wcslen(_buffer), 5000 - wcslen(_buffer), L"* CPacket: 생성: %d / 풀내부: %d, (배열버퍼)생성: %d, 풀내부: %d\n",
-		//	CPacket::GetCreateChunkNum(), CPacket::GetLeftChunkNum(), CPacket::GetCreateBufferChunkNum(), CPacket::GetLeftBufferChunkNum());
 		swprintf_s(buffer + wcslen(buffer), 5000 - wcslen(buffer), L" CPacket: 생성: %d / 풀내부: %d \n",
 			CPacket::GetCreateChunkNum(), CPacket::GetLeftChunkNum());
 		swprintf_s(buffer + wcslen(buffer), 5000 - wcslen(buffer), L" 센드큐: 생성: %d / 풀내부: %d \n* 인덱스 스택: 생성: %d / 풀내부: %d \n", 
 			CLockFreeQueue<CPacket*>::GetCreateChunkNum(), CLockFreeQueue<CPacket*>::GetInPoolChunkNum(),
 			CLockFreeStack<int>::GetCreateChunkNum(), CLockFreeStack<int>::GetLeftChunkNum());
-		// swprintf_s(buffer + wcslen(buffer), 5000 - wcslen(buffer), L"* CAroundSesssionId: 생성: %d / 풀내부: %d / 리사이즈 횟수: %d\n", 
-		// 	CAroundSessionId::GetCreateChunkNum(), CAroundSessionId::GetLeftChunkNum(), CAroundSessionId::GetResizeCnt());
 #ifdef CPACKET_TRACING
 		swprintf_s(buffer + wcslen(buffer), 5000 - wcslen(buffer), L" 패킷 트레이싱 인덱스 스택 남은 수: %d \n", CPacket::m_tracePacket.GetLeftIndexNum());
 #endif
@@ -102,11 +98,6 @@ int main()
 #endif
 #endif
 
-		//swprintf_s(buffer + wcslen(buffer), 5000 - wcslen(buffer), L"[네트워크]----------------------------------------------------- \n");
-		//swprintf_s(buffer + wcslen(buffer), 5000 - wcslen(buffer), L" Recv 세그먼트: %f /sec \n", pConnectMonitor->fNetworkSegmentRecved);
-		//swprintf_s(buffer + wcslen(buffer), 5000 - wcslen(buffer), L" Send 세그먼트: %f /sec \n", pConnectMonitor->fNetworkSegmentSent);
-		//swprintf_s(buffer + wcslen(buffer), 5000 - wcslen(buffer), L" Retr 세그먼트: %f /sec \n", pConnectMonitor->fNetworkSegmentRetransmitted);
-		//
 		swprintf_s(buffer + wcslen(buffer), 5000 - wcslen(buffer), L"[ 시스템 ]----------------------------------------------------- \n");
 		swprintf_s(buffer + wcslen(buffer), 5000 - wcslen(buffer), L" CPU사용량: %f%% (유저: %f%%, 커널: %f%%) \n", pConnectMonitor->fProcessorTotal, pConnectMonitor->fProcessorUser, pConnectMonitor->fProcessorKernel);
 		swprintf_s(buffer + wcslen(buffer), 5000 - wcslen(buffer), L" 논페이지풀: %fMBytes, 사용가능: %fMBytes \n", (double)pConnectMonitor->llNonpagedBytes / 1024 / 1024, (double)pConnectMonitor->llAvailableBytes / 1024 / 1024);

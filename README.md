@@ -72,7 +72,8 @@ IOCP 넷코어 라이브러리 <br>
 # Builds
 
 ```
-Release O0 (inline만 허용(O1)) / C++17 
+. Release O0 (inline만 허용(O1)) / C++17 
+. 처음에만 Monitoring 서버와 연결이 되야 시작
 Server  /
     ├ Config     /Config.cnf                 <모두 필요>
     ├ Login      /LoginServer.exe            <채팅의 로그인 서버>

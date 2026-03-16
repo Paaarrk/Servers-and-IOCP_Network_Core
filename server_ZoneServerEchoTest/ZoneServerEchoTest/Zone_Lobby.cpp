@@ -28,8 +28,7 @@ void CLobbyTimerJob::Excute()
 	_recvLoginTps = _InterlockedExchange(&_recvLoginCount, 0);
 
 	DWORD curTime = timeGetTime();
-	int32 deltaTime = MONITORING_TICK - (int32)(curTime - _startTime);
-	//Core::c_syslog::logging().Log(L"Debug LobbyTimer", Core::c_syslog::en_SYSTEM, L"[LobbyTimer excute: %d | deltaTime: %d]", curTime % 10000, deltaTime);
+	int32_t deltaTime = MONITORING_TICK - (int32_t)(curTime - _startTime);
 	if (deltaTime < 0)
 	{
 		_startTime = curTime + MONITORING_TICK;
@@ -70,7 +69,7 @@ CLobby::CLobby():_bUseTimeout(0)
 
 CLobby::~CLobby()
 {
-	for (std::pair<const uint64, CUser*>& userNode : _userMap)
+	for (std::pair<const uint64_t, CUser*>& userNode : _userMap)
 	{
 		DisconnectZoneZero(userNode.first);
 		CUser::Free(userNode.second);
@@ -89,7 +88,7 @@ void CLobby::ToggleTimeout()
 		_bUseTimeout.exchange(true);
 }
 
-void CLobby::DeleteLogin(uint64 sessionId)
+void CLobby::DeleteLogin(uint64_t sessionId)
 {
 	size_t num = _accountMap.erase(sessionId);
 	if (num == 0)
@@ -99,7 +98,7 @@ void CLobby::DeleteLogin(uint64 sessionId)
 	}
 }
 
-CUser* CLobby::FindUser(uint64 sessionId)
+CUser* CLobby::FindUser(uint64_t sessionId)
 {
 	auto it = _userMap.find(sessionId);
 	if (it == _userMap.end())
@@ -107,14 +106,14 @@ CUser* CLobby::FindUser(uint64 sessionId)
 	return it->second;
 }
 
-void CLobby::SetDead(uint64 sessionId)
+void CLobby::SetDead(uint64_t sessionId)
 {
 	CUser* pUser = FindUser(sessionId);
 	if (pUser != nullptr)
 		pUser->SetDead();
 }
 
-void CLobby::ReleaseAccountNo(int64 accountNo, uint64 sessionId)
+void CLobby::ReleaseAccountNo(int64_t accountNo, uint64_t sessionId)
 {
 	auto it = _accountMap.find(accountNo);
 	if (it != _accountMap.end() && it->second == sessionId)
@@ -130,11 +129,11 @@ void CLobby::OnUpdate()
 	if (_bUseTimeout.load())
 	{
 		DWORD curTime = timeGetTime();
-		int32 deltaTime;
-		std::unordered_map<uint64, CUser*>::iterator it_end = _userMap.end();
-		for (std::pair<const uint64, CUser*>& node : _userMap)
+		int32_t deltaTime;
+		std::unordered_map<uint64_t, CUser*>::iterator it_end = _userMap.end();
+		for (std::pair<const uint64_t, CUser*>& node : _userMap)
 		{
-			deltaTime = (int32)(curTime - node.second->GetLastRecvTime());
+			deltaTime = (int32_t)(curTime - node.second->GetLastRecvTime());
 			if (deltaTime > TIME_OUT_MS_LOBBY)
 			{
 				Log::logging().Log(TAG_CONTENTS, Log::en_SYSTEM, L"[AccountNo: %lld] Not logined Time - out", node.second->GetAccountNo());
@@ -145,7 +144,7 @@ void CLobby::OnUpdate()
 	}
 }
 
-void CLobby::OnEnter(uint64 sessionId, void* playerPtr, std::wstring* ip)
+void CLobby::OnEnter(uint64_t sessionId, void* playerPtr, std::wstring* ip)
 {
 	CUser* pUser = (CUser*)playerPtr;
 	if(pUser == nullptr)
@@ -169,7 +168,7 @@ void CLobby::OnEnter(uint64 sessionId, void* playerPtr, std::wstring* ip)
 		pUser->SetIp(*ip);
 	}
 
-	std::pair<std::unordered_map<uint64, CUser*>::iterator, bool> ret = _userMap.insert({ sessionId, pUser });
+	std::pair<std::unordered_map<uint64_t, CUser*>::iterator, bool> ret = _userMap.insert({ sessionId, pUser });
 	if (ret.second == false)
 	{
 		Log::logging().Log(TAG_CONTENTS, Log::en_ERROR, L"이미 로비에 있는 캐릭터");
@@ -182,7 +181,7 @@ void CLobby::OnEnter(uint64 sessionId, void* playerPtr, std::wstring* ip)
 	}
 }
 
-void CLobby::OnLeave(uint64 sessionId, bool bNeedPlayerDelete)
+void CLobby::OnLeave(uint64_t sessionId, bool bNeedPlayerDelete)
 {
 	if (bNeedPlayerDelete)
 	{
@@ -190,7 +189,7 @@ void CLobby::OnLeave(uint64 sessionId, bool bNeedPlayerDelete)
 		if (it != _userMap.end())
 		{
 			CUser* pUser = it->second;
-			int64 accNo = pUser->GetAccountNo();
+			int64_t accNo = pUser->GetAccountNo();
 			CUser::Free(pUser);
 			ReleaseAccountNo(accNo, sessionId);
 		}
@@ -199,7 +198,7 @@ void CLobby::OnLeave(uint64 sessionId, bool bNeedPlayerDelete)
 	_userMap.erase(sessionId);
 }
 
-void CLobby::OnMessage(uint64 sessionId, const char* readPtr, int payloadlen)
+void CLobby::OnMessage(uint64_t sessionId, const char* readPtr, int payloadlen)
 {
 	if (payloadlen < 2)
 	{
@@ -211,9 +210,9 @@ void CLobby::OnMessage(uint64 sessionId, const char* readPtr, int payloadlen)
 		return;
 	}
 
-	uint16 type = *((uint16*)readPtr);
+	uint16_t type = *((uint16_t*)readPtr);
 	readPtr += 2;
-	payloadlen -= sizeof(uint16);
+	payloadlen -= sizeof(uint16_t);
 
 	switch (type)
 	{
@@ -236,7 +235,7 @@ void CLobby::OnMessage(uint64 sessionId, const char* readPtr, int payloadlen)
 	}
 }
 
-void CLobby::RequestLogin(uint64 sessionId, const char* readPtr, int payloadlen)
+void CLobby::RequestLogin(uint64_t sessionId, const char* readPtr, int payloadlen)
 {
 	_monitorJob->IncreaseRecvLoginCount();
 
@@ -258,14 +257,14 @@ void CLobby::RequestLogin(uint64 sessionId, const char* readPtr, int payloadlen)
 		return;
 	}
 
-	int64 accountNo;
-	int32 version;
-	accountNo = *((int64*)readPtr);
-	readPtr += sizeof(int64);
+	int64_t accountNo;
+	int32_t version;
+	accountNo = *((int64_t*)readPtr);
+	readPtr += sizeof(int64_t);
 	pUser->SetSessionKey(readPtr);
 	readPtr += 64;
-	version = *((int32*)readPtr);
-	readPtr += sizeof(int32);
+	version = *((int32_t*)readPtr);
+	readPtr += sizeof(int32_t);
 
 	// 더미 테스트용 코드
 	if (10000 <= accountNo && accountNo < 20000)
@@ -292,12 +291,12 @@ void CLobby::RequestLogin(uint64 sessionId, const char* readPtr, int payloadlen)
 	}
 	
 	// 로그인 처리
-	std::pair<std::unordered_map<int64, uint64>::iterator, bool> ret =
+	std::pair<std::unordered_map<int64_t, uint64_t>::iterator, bool> ret =
 		_accountMap.insert({ accountNo, sessionId });
 	if (ret.second == false)
 	{
 		_monitorJob->IncreaseDuplicateLoginCount();
-		uint64 loginedSessionId = ret.first->second;
+		uint64_t loginedSessionId = ret.first->second;
 		ret.first->second = sessionId;
 
 		Log::logging().Log(TAG_CONTENTS, Log::en_SYSTEM, L"[sessionId: %016llx, accountNo: %lld] 중복로그인으로 퇴출 !!", loginedSessionId, accountNo);
@@ -308,5 +307,5 @@ void CLobby::RequestLogin(uint64 sessionId, const char* readPtr, int payloadlen)
 	pUser->SetAccountNo(accountNo);
 	pUser->MessageRecved(GetTickStartTime());
 	GetZoneManager()->MoveZone(((CEchoServer*)GetZoneServer())->GetEchoId(), sessionId);
-	// Log::logging().Log(L"Deb", Log::en_SYSTEM, L"MOVE !!");
+	
 }

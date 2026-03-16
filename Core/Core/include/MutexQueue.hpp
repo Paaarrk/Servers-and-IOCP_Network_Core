@@ -453,8 +453,6 @@ private:
 	//----------------------------------------------------------------
 	int _maxSize;
 
-	//std::mutex _enqueuelock;
-	//std::mutex _dequeuelock;
 	SRWLOCK _enqueuelock;
 	SRWLOCK _dequeuelock;
 	//----------------------------------------------------------------

@@ -60,9 +60,6 @@
     <ClCompile Include="EchoServer.cpp">
       <Filter>소스 파일\Contents</Filter>
     </ClCompile>
-    <ClCompile Include="ContentsManager.cpp">
-      <Filter>소스 파일\Contents</Filter>
-    </ClCompile>
     <ClCompile Include="Zone_Echo.cpp">
       <Filter>소스 파일\Zones</Filter>
     </ClCompile>
@@ -87,9 +84,6 @@
       <Filter>헤더 파일\Zones</Filter>
     </ClInclude>
     <ClInclude Include="EchoServer.h">
-      <Filter>헤더 파일\Contents</Filter>
-    </ClInclude>
-    <ClInclude Include="ContentsManager.h">
       <Filter>헤더 파일\Contents</Filter>
     </ClInclude>
     <ClInclude Include="Zone_Echo.h">

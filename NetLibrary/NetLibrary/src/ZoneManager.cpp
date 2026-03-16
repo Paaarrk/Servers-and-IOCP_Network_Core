@@ -270,8 +270,6 @@ bool Net::CZoneManager::EnterZone(uint64 zoneId, uint64 sessionId, const wchar_t
 			return false;
 		}
 
-		// // FOR ZONE: zone을 위한 참조 올리기
-		// sessionRef.GetZoneSession()->IncreaseRefcount();
 
 		if (ipw == nullptr)
 		{

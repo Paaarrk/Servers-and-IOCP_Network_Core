@@ -107,10 +107,6 @@ int main()
 		swprintf_s(buffer + wcslen(buffer), 5000 - wcslen(buffer),
 			L"| Duplicate:%6lld \n",
 			g_server.GetDuplicateLoginCnt());
-		// swprintf_s(buffer + wcslen(buffer), 5000 - wcslen(buffer),
-		// 	L"============================================================================================================ \n");
-		// swprintf_s(buffer + wcslen(buffer), 5000 - wcslen(buffer),
-		// 	L"| Send Requests Left: %5d \n", g_server.GetSendRequestsCnt());
 		swprintf_s(buffer + wcslen(buffer), 5000 - wcslen(buffer),
 			L"============================================================================================================ \n");
 		swprintf_s(buffer + wcslen(buffer), 5000 - wcslen(buffer),
@@ -186,10 +182,6 @@ int main()
 		if (_kbhit())
 		{
 			int key = _getch();
-			if (key == 'a' || key == 'A')
-			{
-				//g_server.ToggleUseWhite();
-			}
 			if (key == 's' || key == 'S')
 			{
 				if (g_server.ToggleStopStart() == false)

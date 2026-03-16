@@ -34,7 +34,7 @@ void CChatServerMonitoringJob::Excute()
 
 	DWORD curTime = timeGetTime();
 	int32 deltaTime = SERVER_MONITORING_TICK - (int32)(curTime - _startTime);
-	//Log::logging().Log(L"Debug CS", Log::en_SYSTEM, L"[CS excute: %d | deltaTime: %d]", curTime % 10000, deltaTime);
+	
 	if (deltaTime < 0)
 	{
 		_startTime = curTime + SERVER_MONITORING_TICK;
@@ -211,36 +211,7 @@ void CChatServer::OnUserEvent(Net::CPacket* pPacket)
 	{
 	case enChatServer::PQCS_REQUEST_REDIS:
 	{
-		//int64_t accountNo;
-		//uint64_t sessionId;
-		//*pPacket >> sessionId;	// 이게 왜 필요하냐면 검사중에 유저가 나가버리고 재로그인하면 해당 것이 맞는지 판별이 안됨
-		//*pPacket >> accountNo;
-		//const char* sessionKey = pPacket->GetReadPtr();
-		//
-		////-----------------------------------------
-		//// 레디스 검색
-		////-----------------------------------------
-		//std::string getSessionKey = std::move(_redisConn.GetValue(std::to_string(accountNo)));
-		//std::string_view userKey(sessionKey, 64);
-		////bool identified = true;	//로그 남기려고 변수 하나만
-		//if (userKey != getSessionKey)
-		//{
-		//	Log::logging().Log(TAG_CONTENTS, Log::en_ERROR,
-		//		L"[sessionId: %lld / accountNo:%lld] 세션 키가 다름. (Redis세션키 길이: %d, 0이면 연결 끊겼거나 로그인 서버 안거침))"
-		//		, sessionId, accountNo, getSessionKey.size());
-		//
-		//	Disconnect(sessionId); // OnRelease유도
-		//	return;
-		//}
-		////----------------------------------------
-		//// 결과를 알림
-		////----------------------------------------
-		//CPACKET_CREATE(postIdentifyResultPacket);
-		//postIdentifyResultPacket->SetRecvBuffer();
-		//*postIdentifyResultPacket << PQCS_IDENTIFYING;
-		//*postIdentifyResultPacket << sessionId;
-		//*postIdentifyResultPacket << accountNo;
-		//PostUserEvent(postIdentifyResultPacket.GetCPacketPtr());
+		// AuthContainer로 작업 위치 옮김
 		__debugbreak();
 		break;
 	}
@@ -768,15 +739,8 @@ bool CChatServer::RequestLogin(uint64 sessionId, Net::CPacketViewer* pPacket)
 		memcpy_s(pUser->_sessionKey, KEY_SIZE, sessionKey, KEY_SIZE);
 		pUser->_state = CUser::STATE_WAIT_IDENTIFY;
 
-		//CPACKET_CREATE(postIdentifyPacket);
-		//postIdentifyPacket->SetRecvBuffer();
-		//*postIdentifyPacket << PQCS_REQUEST_REDIS;
-		//*postIdentifyPacket << sessionId;
-		//*postIdentifyPacket << accountNo;
-		//postIdentifyPacket->PushData(pUser->_sessionKey, 64);
 		pUser->Unlock();
 
-		//PostUserEvent(postIdentifyPacket.GetCPacketPtr());
 		std::string_view clientKey(sessionKey, KEY_SIZE);
 		g_redisAuth.RequestAuth(this, sessionId, accountNo, clientKey);
 		

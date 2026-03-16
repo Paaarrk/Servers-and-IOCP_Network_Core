@@ -32,36 +32,12 @@ struct stSector
 //-------------------------------------------------------------
 class CAroundSessionId
 {
-	// template <typename T, int __keyValue, int __whatFreeToUse>
-	// friend class CTlsObjectPool;
-
 public:
 	enum enAroundSessionId
 	{
-		// KEY = 0x0000'000E,
 		DEFAULT_CAP = 300
 	};
 
-	// static CAroundSessionId* Alloc()
-	// {
-	// 	CAroundSessionId* ret = s_pool.Alloc();
-	// 	ret->_count = 0;
-	// 	return ret;
-	// }
-	// 
-	// static void Free(CAroundSessionId* pAroundSessionId)
-	// {
-	// 	s_pool.Free(pAroundSessionId);
-	// }
-	// 
-	// static int GetCreateChunkNum()
-	// {
-	// 	return s_pool.GetAllocChunkPoolCreateNum();
-	// }
-	// static int GetLeftChunkNum()
-	// {
-	// 	return s_pool.GetAllocChunkPoolSize();
-	// }
 	static int GetResizeCnt()
 	{
 		return s_resizeCnt;
@@ -109,7 +85,6 @@ private:
 	int _capacity;
 
 	static long s_resizeCnt;
-	// static CTlsObjectPool<CAroundSessionId, KEY, TLS_OBJECTPOOL_USE_CALLONCE> s_pool;
 };
 
 class CUser;
@@ -118,8 +93,6 @@ class CUser;
 // 
 // < V2 >
 // . 최종적으로 섹터 낱개락으로 결정 
-//   => 지역락과 비교해서 SendPacket위한 주변 락은 비슷한데
-//   => Exclusive락이 경합이 많아서 지역(5by5)으로 락을 걸면 3배 느렸음 (avg기준)
 // 
 // . stl사용해보기 
 //   => shared_mutex.cpp, mutex.cpp확인 결과 shared_mutex가 정보가 없어서 가장 가벼움
@@ -419,7 +392,6 @@ public:
 		}
 
 		// 섹터 다 쓰면 바로 해제하려고 (여기서 한번에 안하고)
-		// UnlocksShared(&pAround);
 	}
 private:
 	stSector _sectors[FIELD_HEIGHT][FIELD_WIDTH];

@@ -272,8 +272,6 @@ CMonitorSystem::CMonitorSystem() :
 		p += wcslen(p) + 1;
 	}
 
-	// for (int i = 0; i < _vwstr_NIC_Names.size(); i++)
-	// 	wprintf_s(L"%s \n", _vwstr_NIC_Names[i].c_str());
 
 	// Äõ¸® ÁØºñ
 

@@ -46,7 +46,7 @@ void Net::CServerMonitoringJob::Excute()
 
 	DWORD curTime = timeGetTime();
 	int32 deltaTime = SERVER_MONITORING_TICK - (int32)(curTime - _startTime);
-	//Core::c_syslog::logging().Log(L"Debug NS", Core::c_syslog::en_SYSTEM, L"[NS excute: %d | deltaTime: %d]", curTime % 10000, deltaTime);
+	
 	if (deltaTime < 0)
 	{
 		_startTime = curTime + SERVER_MONITORING_TICK;
@@ -627,7 +627,7 @@ void Net::CServer::ReleaseSession(Net::stNetSession* pSession)
 	uint64_t sessionId = pSession->sessionId;
 	// 세션 초기화 후 반환
 	Core::c_syslog::logging().Log(TAG_NET, Core::c_syslog::en_DEBUG, L"[sessionId: %016llx] refcount == 0이되어 ReleaseUser() 합니다", sessionId);
-	// OnRelease(sessionId);
+	
 	pSession->Clear();
 	bool isOk = _sessionStructure.ReleaseSession(pSession);
 	if (isOk == false)
@@ -857,7 +857,6 @@ void Net::CServer::IOCP_CbTransferred_Zero(Net::stNetSession* pSession, Net::stN
 		CancelIoEx((HANDLE)pSession->sock, &pSession->recvOl.ol);
 
 		_InterlockedExchange(&pSession->isSending, 0);
-		//OnSend(pSession->sessionId, false);
 
 		DecrementRefcount(pSession);
 	}
@@ -966,12 +965,10 @@ unsigned int Net::CServer::NetServerWorkerFunc(void* param)
 				CancelIoEx((HANDLE)pSession->sock, &pSession->recvOl.ol);
 
 				_InterlockedExchange(&pSession->isSending, 0);
-				//nowServer->OnSend(pSession->sessionId, false);
 				nowServer->DecrementRefcount(pSession);
 			}
 			else
 			{
-				//nowServer->OnSend(pSession->sessionId, true);
 				//--------------------------------------------------
 				// 센드 성공! 
 				// . 일단 isSending은 0으로
@@ -1292,8 +1289,6 @@ unsigned int Net::CServer::NetServerAcceptFunc(void* param)
 			continue;
 		}
 
-		// 이 작업 이제는 InitNewSession에서함
-		//_InterlockedIncrement(&pNewSession->refcount);
 
 		// OnAccept
 		nowServer->OnAccept(pNewSession->sessionId, caddr.sin_addr, pNewSession->ip);

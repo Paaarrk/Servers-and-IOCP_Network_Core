@@ -53,19 +53,6 @@ namespace dump
 
 			long DumpCount = _InterlockedIncrement(&_dumpcount);
 
-			/* 현재 프로세스의 메모리 사용량을 얻어온다 */
-			// HANDLE hProcess = 0;
-			// PROCESS_MEMORY_COUNTERS pmc;
-			// hProcess = GetCurrentProcess();
-			// 
-			// if (hProcess == NULL)
-			// 	return 0;
-			// 
-			// if (GetProcessMemoryInfo(hProcess, &pmc, sizeof(pmc)))
-			// {
-			// 	iWorkingMemory = (int)(pmc.WorkingSetSize / 1024 / 1024);
-			// }
-			// CloseHandle(hProcess);
 
 			/* 현재 날짜와 시간을 알아온다 */
 			wchar_t fileName[MAX_PATH];

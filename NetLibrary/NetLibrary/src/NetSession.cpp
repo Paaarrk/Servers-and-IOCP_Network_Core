@@ -75,7 +75,6 @@ void Net::stNetSession::Clear()
 	sessionId = 0; // disconnect flag 알아서 0됨
 	recvCntForMessage = 0;
 	CPACKET_FREE(recvQ);
-	// sendQ.Clear();
 	//---------------------------------------------------
 	// 센드큐는 직접 비우자..
 	//---------------------------------------------------
@@ -316,7 +315,7 @@ bool stNetSession::SendPost()
 			// 이건 진짜 없어서 나감
 			// WSASend안하니까 false반환
 			//----------------------------------------
-			//return 1;
+			
 			return false;
 		}
 		else
@@ -333,7 +332,7 @@ bool stNetSession::SendPost()
 					// 끊어야 되는애라 보낼 이유 X
 					//------------------------------------
 					_InterlockedExchange(&isSending, 0);
-					//return 2;
+					
 					return false;
 				}
 				else
@@ -351,7 +350,7 @@ bool stNetSession::SendPost()
 				// 이건 다른애가 보내고있는거라 나감
 				// WSASend안하니까 false 반환
 				//----------------------------------------
-				//return 1;
+				
 				return false;
 			}
 		}
@@ -394,11 +393,8 @@ TRY_SEND:
 		//-----------------------------------------------
 		// 보낼게 없음
 		//-----------------------------------------------
-		//s_ServerSyslog.Log(TAG_NET, c_syslog::en_ERROR, L"[sessionId: %016llx] (i == 0인 경우) 왜 나올까...?", sessionId);
-		//__debugbreak();
+		
 		_InterlockedExchange(&isSending, 0);
-		//if ((refcount & SESSION_RELEASE_FLAG) == SESSION_RELEASE_FLAG)
-		//	s_ServerSyslog.Log(TAG_NET, c_syslog::en_ERROR, L"[sessionId: %016llx] (i == 0인이유가 릴리즈..? 되면 안되는데)", refcount);
 		if (sendQ.isEmpty())
 		{
 			//------------------------------------------
@@ -421,7 +417,7 @@ TRY_SEND:
 					// 끊어야 되는애라 보낼 이유 X
 					//------------------------------------
 					_InterlockedExchange(&isSending, 0);
-					// return 2;
+					
 					return false;
 				}
 				else
@@ -439,7 +435,7 @@ TRY_SEND:
 				// 다른애가 보내고있는거, 
 				// 외부에서 참조카운트 내려야함
 				//------------------------------------------
-				// return 1;
+				
 				return false;
 			}
 		}
@@ -499,7 +495,7 @@ TRY_SEND:
 			CancelIoEx((HANDLE)sock, &recvOl.ol);
 
 			_InterlockedExchange(&isSending, 0);
-			// return 2;
+			
 			return false;
 		}
 		else
@@ -531,7 +527,7 @@ TRY_SEND:
 			// 외부에서 _InterlockedDecremnet유도
 			// 여기에서 ReleaseSession 호출이 안됨
 			//-----------------------------------------------
-			// return 1;
+			
 			return false;
 		}
 		//-----------------------------------------------
@@ -542,7 +538,7 @@ TRY_SEND:
 			//-------------------------------------------
 			// 세션이 바뀌었으니 외부에 _InterDec 요청
 			//-------------------------------------------
-			// return 1;
+			
 			return false;
 		}
 		//-----------------------------------------------
@@ -552,11 +548,11 @@ TRY_SEND:
 		//-----------------------------------------------
 		// 일단 내부에서 올린 인터락 해제 해줄 주체가 필요
 		//-----------------------------------------------
-		// return 1;
+		
 		return false;
 	}
 
-	// return 0;
+	
 	return true;
 }
 

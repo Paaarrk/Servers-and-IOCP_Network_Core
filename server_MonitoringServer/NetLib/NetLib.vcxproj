@@ -30,7 +30,6 @@
     <ClCompile Include="NetLibraryV8\NetlibV8.cpp" />
     <ClCompile Include="NetLibraryV8\ProfilerV2.cpp" />
     <ClCompile Include="NetLibraryV8\TlsPacketV4.cpp" />
-    <ClCompile Include="NetLibraryV8\TraceV1.cpp" />
     <ClCompile Include="_main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -39,16 +38,12 @@
     <ClInclude Include="Connections.h" />
     <ClInclude Include="MonitoringServer.h" />
     <ClInclude Include="NetLibraryV8\DBConnector.h" />
-    <ClInclude Include="NetLibraryV8\DBFormat.h" />
-    <ClInclude Include="NetLibraryV8\LockFreeFreeListV2.h" />
     <ClInclude Include="NetLibraryV8\LockFreeQueueV5.h" />
     <ClInclude Include="NetLibraryV8\LockFreeStackV3.h" />
     <ClInclude Include="NetLibraryV8\logclassV1.h" />
     <ClInclude Include="NetLibraryV8\MonitorV1.h" />
     <ClInclude Include="NetLibraryV8\NetlibV8.h" />
     <ClInclude Include="NetLibraryV8\ProfilerV2.h" />
-    <ClInclude Include="NetLibraryV8\RingBufferV4.h" />
-    <ClInclude Include="NetLibraryV8\TLSObjectPool_Array_V1.h" />
     <ClInclude Include="NetLibraryV8\TLSObjectPool_IntrusiveList_V2.h" />
     <ClInclude Include="NetLibraryV8\TlsPacketV4.h" />
     <ClInclude Include="NetLibraryV8\_CrashDump.h" />

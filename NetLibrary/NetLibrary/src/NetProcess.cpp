@@ -11,7 +11,7 @@ void Net::CNetProcess::stMonitoringJob::Excute()
 
 	DWORD curTime = timeGetTime();
 	int32 deltaTime = NET_MONITORING_TICK - (int32)(curTime - startTime);
-	//Core::c_syslog::logging().Log(L"Debug NP", Core::c_syslog::en_SYSTEM, L"[NP excute: %d | deltaTime: %d]", curTime % 10000, deltaTime);
+	
 	if (deltaTime < 0)
 	{
 		startTime = curTime + NET_MONITORING_TICK;

@@ -57,45 +57,18 @@ void Net::CZone::EnterFunc(uint64 sessionId, void* playerPointer, std::wstring* 
 		return;
 	}
 
-	// 플레이어 리시브 큐 비워줌 (잔여물 제거)
-	// 사실 채널같이 사용할 존이라서 (구별되서) 이동이끝나야 이동완료 패킷을 보내고,
-	// 그걸 받고 클라가 패킷을 송신할 것이라 여기서 잔여물이 나오면안됨
-	// 첫 엔터는 (playerPointer = null) 제외하자
-	// 사용자의 선택에 맞기자 (OnEnter에서), 그리고 현재 SPSC방식으로 링버퍼를 쓰고있으므로 강제 ClearBuffer위험
-	// OnMessage쪽에서 payload를 터무늬없는 쓰레기 값으로 읽어서 buffer에 복사할 때 오버플로 충분히 날 수 있음
-	// if(playerPointer != nullptr)
-	// {
-	// 	CReferenceZoneSession refSession(sessionId, _myServer);
-	// 	if (refSession.isAlive())
-	// 	{
-	// 		Net::stZoneSession* pSession = refSession.GetZoneSession();
-	// 		Core::RingBuffer& recvQ = pSession->recvedPackets;
-	// 		recvQ.ClearBuffer();
-	// 	}
-	// }
-
 	OnEnter(sessionId, playerPointer, ip);
 }
 
 void Net::CZone::LeaveFunc(uint64 sessionId, bool bNeedPlayerDelete)
 {
 	size_t ret = _sessions->erase(sessionId);
-	// if (ret == 0)	// 이미 없음
-	// 	return;
 
 	OnLeave(sessionId, bNeedPlayerDelete);
 }
 
 bool Net::CZone::Disconnect(uint64 sessionId)
 {
-	//// FOR ZONE, Enter에서 올린 참조카운트 먼저 내리기
-	//Net::stZoneSession* pSession = _myServer->FindSession(sessionId);
-	//if(pSession->sessionId == sessionId)
-	//{
-	//	_myServer->DecrementRefcount(_myServer->FindSession(sessionId));
-	//	return _myServer->Disconnect(sessionId);
-	//}
-	//return true;
 	return _myServer->Disconnect(sessionId);
 }
 
@@ -127,10 +100,6 @@ void Net::CZone::Init(CZoneServer* pZoneServer, int32 maxUser)
 	// 여기부터. std객체 생성자 호출필요
 
 	_myServer = pZoneServer;
-	// _startTime = 0;
-	// _updateDeltaTick = 0;
-	// _befUpdate = 0;
-	// _minimumTick = 0;
 
 	_refCount = 0;
 	_contentsId = 0;
@@ -151,20 +120,17 @@ void Net::CZone::Init(CZoneServer* pZoneServer, int32 maxUser)
 
 void Net::CZone::Acquire(int32 contentsId, uint64 zoneId,int32 minimumTick, int32 maxUsers)
 {
-	// _myServer
 	_startTime = timeGetTime();
 	_updateDeltaTick = 0;
 	_befUpdate = _startTime;
 	_minimumTick = minimumTick;
 
-	//_refcount
 	_contentsId = contentsId;
 	_zoneId = zoneId;
 	_maxUsers = maxUsers;
-	//_jobqueue
+
 	(*_timerRequest)->Set(_myServer, this, zoneId);
 	(*_timerRequest)->ActivateJob();
-	// _sessions.reserve(maxUsers);
 	_pinnedThreadIndex = -1;
 }
 
@@ -218,7 +184,6 @@ void Net::CZone::Clear()
 
 void Net::CZone::TickUpdate()
 {
-	// Log::logging().Log(L"TicUpdate", Log::en_SYSTEM, L"[zone: %lld , time: %d]", _zoneId, timeGetTime());
 	// Queue 비우기 (Enter / Leave)
 	int size = _jobQueue->GetSize();
 	Core::IJob* pJob;
@@ -254,25 +219,6 @@ void Net::CZone::TickUpdate()
 					break;
 			}
 		}
-		// // FOR ZONE, 참조를 매번 얻지않고, 최초 얻은 참조를 신뢰
-		// Net::stZoneSession* pSession = _myServer->FindSession(sessionId);
-		// if (pSession->IsNeedReleasedByZone())
-		// {
-		// 	Disconnect(sessionId);
-		// 	continue;
-		// }
-		// Core::RingBuffer& recvQ = pSession->recvedPackets;
-		// while (recvQ.GetUseSize() > sizeof(uint16_t))
-		// {
-		// 	uint16_t payloadlen;
-		// 	recvQ.Peek((char*)&payloadlen, sizeof(payloadlen));
-		// 	if (recvQ.GetUseSize() >= payloadlen + sizeof(payloadlen))
-		// 	{
-		// 		recvQ.MoveRead(sizeof(payloadlen));
-		// 		recvQ.Dequeue(buffer, payloadlen);
-		// 		OnMessage(sessionId, buffer, payloadlen);
-		// 	}
-		// }
 	}
 
 	// Update

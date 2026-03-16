@@ -132,10 +132,10 @@ DB_MYSQL_ACCOUNTDB
 	mysqlPort = 3306
 
 	/* id */
-	mysqlId = "aa"
+	mysqlId = "check here"
 
 	/* pw */
-	mysqlPw = "aa"
+	mysqlPw = "check here"
 	
 	/* schema */
 	mysqlSchema = "accountdb"
@@ -153,10 +153,10 @@ DB_MYSQL_LOGDB
 	mysqlPort = 3306
 
 	/* id */
-	mysqlId = "aa"
+	mysqlId = "check here"
 
 	/* pw */
-	mysqlPw = "aa"
+	mysqlPw = "check here"
 	
 	/* schema */
 	mysqlSchema = "logdb"

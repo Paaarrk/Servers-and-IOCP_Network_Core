@@ -26,7 +26,6 @@ void CLoginServerMonitoringJob::Excute()
 
 	DWORD curTime = timeGetTime();
 	int32 deltaTime = SERVER_MONITORING_TICK - (int32)(curTime - _startTime);
-	//Log::logging().Log(L"Debug CS", Log::en_SYSTEM, L"[CS excute: %d | deltaTime: %d]", curTime % 10000, deltaTime);
 	if (deltaTime < 0)
 	{
 		_startTime = curTime + SERVER_MONITORING_TICK;
@@ -239,7 +238,7 @@ void CLoginServer::OnExit()
 
 void CLoginServer::OnWorkerStart()
 {
-	//_redisConn.Connect();
+	
 }
 
 void CLoginServer::OnWorkerEnd()
@@ -307,7 +306,7 @@ void CLoginServer::OnUserEvent(Net::CPacket* pPacket)
 		MYSQL_ROW sqlrow = mysql_fetch_row(res);
 		MultiByteToWideChar(CP_UTF8, 0, sqlrow[0], -1, pUser->_id, 20);
 		MultiByteToWideChar(CP_UTF8, 0, sqlrow[1], -1, pUser->_nickName, 20);
-		if(sqlrow[2] != nullptr)	// 실제라면 웹페이지가 이곳을 null이아니게 하겠지만, 지금은 null
+		if(sqlrow[2] != nullptr)	
 			int ret = memcmp(pUser->_sessionKey, sqlrow[2], 64);
 		_mysqlConn.FreeResult();
 

@@ -186,7 +186,6 @@ bool Net::stZoneSession::RecvPost()
 	// 얼마나 받을지 모르니 포인터 이동은 받고 나서 하는 것으로 하자
 	WSABUF wsabufs[1];
 	wsabufs[0].buf = recvQ->GetWritePtr();
-	//wsabufs[0].len = (int)(recvQ->m_chrbuffer + NET_RECVQ_SIZE - recvQ->m_writeptr);
 	wsabufs[0].len = recvQ->GetFreeSize();
 
 	DWORD flags = 0;
@@ -344,7 +343,7 @@ bool stZoneSession::SendPost()
 			// 이건 진짜 없어서 나감
 			// WSASend안하니까 false반환
 			//----------------------------------------
-			//return 1;
+			
 			return false;
 		}
 		else
@@ -361,7 +360,7 @@ bool stZoneSession::SendPost()
 					// 끊어야 되는애라 보낼 이유 X
 					//------------------------------------
 					_InterlockedExchange(&isSending, 0);
-					//return 2;
+					
 					return false;
 				}
 				else
@@ -379,7 +378,7 @@ bool stZoneSession::SendPost()
 				// 이건 다른애가 보내고있는거라 나감
 				// WSASend안하니까 false 반환
 				//----------------------------------------
-				//return 1;
+				
 				return false;
 			}
 		}
@@ -432,7 +431,7 @@ TRY_SEND:
 			//------------------------------------------
 			// 진짜 빈거, 외부에서 참조카운트 내려야함
 			//------------------------------------------
-			// return 1;
+			
 			return false;
 		}
 		else
@@ -449,7 +448,7 @@ TRY_SEND:
 					// 끊어야 되는애라 보낼 이유 X
 					//------------------------------------
 					_InterlockedExchange(&isSending, 0);
-					// return 2;
+					
 					return false;
 				}
 				else
@@ -467,7 +466,7 @@ TRY_SEND:
 				// 다른애가 보내고있는거, 
 				// 외부에서 참조카운트 내려야함
 				//------------------------------------------
-				// return 1;
+				
 				return false;
 			}
 		}
@@ -527,7 +526,7 @@ TRY_SEND:
 			CancelIoEx((HANDLE)sock, &recvOl->ol);
 
 			_InterlockedExchange(&isSending, 0);
-			// return 2;
+			
 			return false;
 		}
 		else
@@ -559,7 +558,7 @@ TRY_SEND:
 			// 외부에서 _InterlockedDecremnet유도
 			// 여기에서 ReleaseSession 호출이 안됨
 			//-----------------------------------------------
-			// return 1;
+			
 			return false;
 		}
 		//-----------------------------------------------
@@ -570,7 +569,7 @@ TRY_SEND:
 			//-------------------------------------------
 			// 세션이 바뀌었으니 외부에 _InterDec 요청
 			//-------------------------------------------
-			// return 1;
+			
 			return false;
 		}
 		//-----------------------------------------------
@@ -580,11 +579,10 @@ TRY_SEND:
 		//-----------------------------------------------
 		// 일단 내부에서 올린 인터락 해제 해줄 주체가 필요
 		//-----------------------------------------------
-		// return 1;
+		
 		return false;
 	}
 
-	// return 0;
 	return true;
 }
 

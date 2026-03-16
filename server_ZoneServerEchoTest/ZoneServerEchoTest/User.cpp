@@ -24,7 +24,7 @@ CUser* CUser::Alloc()
 	return ret;
 }
 
-int32 CUser::Free(CUser* pUser)
+int32_t CUser::Free(CUser* pUser)
 {
 	_InterlockedDecrement((long*)&s_useSize);
 	return s_pool.Free(pUser);

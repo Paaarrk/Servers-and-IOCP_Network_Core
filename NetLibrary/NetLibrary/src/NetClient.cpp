@@ -29,7 +29,6 @@ void Net::CClientMonitoringJob::Excute()
 
 	DWORD curTime = timeGetTime();
 	int32 deltaTime = CLIENT_MONITORING_TICK - (int32)(curTime - _startTime);
-	// Log::logging().Log(L"Debug NC", Log::en_SYSTEM, L"[NC excute: %d | deltaTime: %d]", curTime % 10000, deltaTime);
 	if (deltaTime < 0)
 	{
 		_startTime = curTime + CLIENT_MONITORING_TICK;
@@ -679,12 +678,10 @@ unsigned int Net::CClient::NetClientWorkerProc(void* param)
 				CancelIoEx((HANDLE)pSession->sock, &pSession->recvOl.ol);
 
 				_InterlockedExchange(&pSession->isSending, 0);
-				//nowServer->OnSend(pSession->sessionId, false);
 				nowClient->DecrementRefcount();
 			}
 			else
 			{
-				//nowServer->OnSend(pSession->sessionId, true);
 				//--------------------------------------------------
 				// 센드 성공! 
 				// . 일단 isSending은 0으로

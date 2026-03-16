@@ -2,7 +2,6 @@
 #include "UserV2_Multi.h"
 
 
-// CTlsObjectPool<CAroundSessionId, CAroundSessionId::KEY, TLS_OBJECTPOOL_USE_CALLONCE> CAroundSessionId::s_pool;
 long CAroundSessionId::s_resizeCnt = 0;
 
 CField g_field;

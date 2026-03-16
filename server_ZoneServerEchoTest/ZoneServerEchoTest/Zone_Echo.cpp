@@ -34,8 +34,7 @@ void CEchoTimerJob::Excute()
 	_recvHeartbeatTps = _InterlockedExchange(&_recvHeartbeatCount, 0);
 
 	DWORD curTime = timeGetTime();
-	int32 deltaTime = MONITORING_TICK - (int32)(curTime - _startTime);
-	//Core::c_syslog::logging().Log(L"Debug EchoTimer", Core::c_syslog::en_SYSTEM, L"[LobbyTimer excute: %d | deltaTime: %d]", curTime % 10000, deltaTime);
+	int32_t deltaTime = MONITORING_TICK - (int32)(curTime - _startTime);
 	if (deltaTime < 0)
 	{
 		_startTime = curTime + MONITORING_TICK;
@@ -122,11 +121,11 @@ void CEcho::OnUpdate()
 	if (_bUseTimeout.load())
 	{
 		DWORD curTime = timeGetTime();
-		int32 deltaTime;
-		std::unordered_map<uint64, CUser*>::iterator it_end = _userMap.end();
-		for (std::pair<const uint64, CUser*>& node : _userMap)
+		int32_t deltaTime;
+		std::unordered_map<uint64_t, CUser*>::iterator it_end = _userMap.end();
+		for (std::pair<const uint64_t, CUser*>& node : _userMap)
 		{
-			deltaTime = (int32)(curTime - node.second->GetLastRecvTime());
+			deltaTime = (int32_t)(curTime - node.second->GetLastRecvTime());
 			if (deltaTime > TIME_OUT_MS_ECHO)
 			{
 				if(node.second->IsAlive())
@@ -140,7 +139,7 @@ void CEcho::OnUpdate()
 	}
 }
 
-void CEcho::OnEnter(uint64 sessionId, void* playerPtr, std::wstring* ip)
+void CEcho::OnEnter(uint64_t sessionId, void* playerPtr, std::wstring* ip)
 {
 	CUser* pUser = (CUser*)playerPtr;
 	if(pUser == nullptr)
@@ -169,12 +168,12 @@ void CEcho::OnEnter(uint64 sessionId, void* playerPtr, std::wstring* ip)
 
 	CPACKET_CREATE(resLoginPacket);
 	*resLoginPacket << (uint16)en_PACKET_CS_GAME_RES_LOGIN
-		<< (uint8)1
-		<< (int64)pUser->GetAccountNo();
+		<< (uint8_t)1
+		<< (int64_t)pUser->GetAccountNo();
 	SendPacket(sessionId, resLoginPacket.GetCPacketPtr());
 }
 
-void CEcho::OnLeave(uint64 sessionId, bool bNeedPlayerDelete)
+void CEcho::OnLeave(uint64_t sessionId, bool bNeedPlayerDelete)
 {
 	if (bNeedPlayerDelete)
 	{
@@ -182,7 +181,7 @@ void CEcho::OnLeave(uint64 sessionId, bool bNeedPlayerDelete)
 		if (it != _userMap.end())
 		{
 			CUser* pUser = it->second;
-			int64 accNo = pUser->GetAccountNo();
+			int64_t accNo = pUser->GetAccountNo();
 			CUser::Free(pUser);
 			bool ret = ReleaseAccountNo(accNo, sessionId);
 			if (ret == false)
@@ -195,7 +194,7 @@ void CEcho::OnLeave(uint64 sessionId, bool bNeedPlayerDelete)
 	_userMap.erase(sessionId);
 }
 
-void CEcho::OnMessage(uint64 sessionId, const char* readPtr, int payloadlen)
+void CEcho::OnMessage(uint64_t sessionId, const char* readPtr, int payloadlen)
 {
 	if (payloadlen < 2)
 	{
@@ -207,9 +206,9 @@ void CEcho::OnMessage(uint64 sessionId, const char* readPtr, int payloadlen)
 		return;
 	}
 
-	uint16 type = *((uint16*)readPtr);
+	uint16_t type = *((uint16_t*)readPtr);
 	readPtr += 2;
-	payloadlen -= sizeof(uint16);
+	payloadlen -= sizeof(uint16_t);
 	
 	switch (type)
 	{
@@ -240,7 +239,7 @@ void CEcho::OnMessage(uint64 sessionId, const char* readPtr, int payloadlen)
 }
 
 
-void CEcho::RequestEcho(uint64 sessionId, const char* readPtr, int payloadlen)
+void CEcho::RequestEcho(uint64_t sessionId, const char* readPtr, int payloadlen)
 {
 	_monitorJob->IncreaseRecvEchoCount();
 
@@ -269,13 +268,13 @@ void CEcho::RequestEcho(uint64 sessionId, const char* readPtr, int payloadlen)
 		return;
 	}
 
-	int64 accountNo;
-	int64 sendTick;
+	int64_t accountNo;
+	int64_t sendTick;
 
-	accountNo = *((int64*)readPtr);
-	readPtr += sizeof(int64);
-	sendTick = *((int64*)readPtr);
-	readPtr += sizeof(int64);
+	accountNo = *((int64_t*)readPtr);
+	readPtr += sizeof(int64_t);
+	sendTick = *((int64_t*)readPtr);
+	readPtr += sizeof(int64_t);
 
 	if (pUser->GetAccountNo() != accountNo)
 	{
@@ -298,7 +297,7 @@ void CEcho::RequestEcho(uint64 sessionId, const char* readPtr, int payloadlen)
 	SendPacketFast(sessionId, resEcho.GetCPacketPtr());
 }
 
-void CEcho::RequestHeartbeat(uint64 sessionId, const char* readPtr, int payloadlen)
+void CEcho::RequestHeartbeat(uint64_t sessionId, const char* readPtr, int payloadlen)
 {
 	_monitorJob->IncreaseRecvHeartbeatCount();
 

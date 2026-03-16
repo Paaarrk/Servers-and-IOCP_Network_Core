@@ -53,18 +53,6 @@ private:
 	std::vector<in_addr> _whiteList;
 };
 
-// class CBlackList
-// {
-// public:
-// 	struct stBlackIp
-// 	{
-// 		in_addr ip;
-// 		DWORD expireTime;	//만료 시간
-// 	};
-// private:
-// 	std::unordred_map<in_addr, > _blackList;
-// };
-
 
 class CChatServerMonitoringJob : public Core::CTimerJob
 {

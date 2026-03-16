@@ -41,7 +41,7 @@ namespace Core
 			if (_buff != nullptr)
 				free(_buff);
 		}
-		int GetBufferSize() { return _size; }
+		int GetBufferSize() { return _size; } const
 
 		//---------------------------------------------------------------
 		// cchar*data, int _count
@@ -198,149 +198,6 @@ namespace Core
 		bool IsEmpty() { return (_read == _write); }
 
 		//---------------------------------------------------------------
-		// 버퍼 크기 리사이징
-		// #define RB_MAXSIZE 를 해두시면 그 버퍼 크기까지 사용가능.
-		// 자신이 사용할 버퍼 크기보다는 크게 해주세요.
-		// 선형으로 펴버리니 _write, _read도 변화
-		//---------------------------------------------------------------
-		void Resize(int size)
-		{
-			if (size <= 0)
-				return;
-			if (size > RB_MAXSIZE)
-				size = RB_MAXSIZE;
-			if (_size == size)
-				return;	// 같으면 그냥 하지 않음
-
-			int usesize;
-			int firstcopy;
-			int secondcopy;
-
-			char* newBuf = (char*)malloc(sizeof(char) * size);
-			if (newBuf == nullptr)
-				return;	//그냥 더 늘리지 못하게 막자
-
-			if (_read == _write)
-			{	// 제일 편한거, 비었으니 그냥 앞으로 땡기자, 복사할거도 없다.
-				free(_buff);
-				_size = size;
-				_buff = newBuf;
-				_read = _buff;
-				_write = _buff;
-				_end = newBuf + size;
-				return;
-			}
-			if (_read > _write)
-			{	// wrap_around 발생 가능 두번 나눠서, 두번 복사할거 그냥 앞으로 땡기자
-				usesize = (int)(_write - _read + _size);
-				firstcopy = (int)(_end - _read);
-				secondcopy = usesize - firstcopy;
-				memcpy(newBuf, _read, (size_t)firstcopy);
-				memcpy(newBuf + firstcopy, _buff, (size_t)secondcopy);
-
-				free(_buff);
-				_size = size;
-				_buff = newBuf;
-				_read = _buff;
-				_write = _buff + usesize;
-				_end = newBuf + size;
-			}
-			else // _read < _write
-			{	// 맘 편히 복사, 이경우도 앞으로 그냥 땡기자
-				usesize = (int)(_write - _read);
-				memcpy(newBuf, _read, (size_t)usesize);
-
-				free(_buff);
-				_size = size;
-				_buff = newBuf;
-				_read = _buff;
-				_write = _buff + usesize;
-				_end = newBuf + size;
-			}
-		}
-
-		//---------------------------------------------------------------
-		// cchar*data, int _count
-		// data를 넣고 넣은 만큼 반환. 반환은 size or 0 (실패)
-		// 이 버전은 리사이징을 수행한다.
-		//---------------------------------------------------------------
-		int EnqueueEx(const char* data, int size)
-		{
-			if (size <= 0)
-				return 0;
-			int freesize;
-			const char* pdata;
-			int firstcopysize;
-			int leftcopysize;
-
-			// freesize 계산
-			if (_read > _write)
-			{
-				freesize = (int)(_read - _write - 1);
-				// 공간 부족
-				if (freesize < size)
-				{
-					Resize(_size * 2);
-				}
-			}
-			else
-			{
-				freesize = (int)(_read - _write - 1 + _size);
-				// 공간 부족
-				if (freesize < size)
-				{
-					Resize(_size * 2);
-				}
-			}
-
-			// Resize가 다 바꾸니 바뀐 상태로 재실행
-			if (_read > _write)
-			{
-				freesize = (int)(_read - _write - 1);
-				// 공간 부족
-				if (freesize < size)
-					return 0;
-
-				// 맘 편하게 복사 (read가 크니까)
-				memcpy(_write, data, (size_t)size);
-
-				// _write 포인터 이동
-				_write += size;
-			}
-			else
-			{
-				freesize = (int)(_read - _write - 1 + _size);
-				// 공간 부족
-				if (freesize < size)
-					return 0;
-
-				// 불편하게 복사
-				pdata = data;
-				firstcopysize = (int)(_end - _write);
-				if (firstcopysize < size)
-				{
-					// 1. 먼저 read의 앞으로 복사
-					memcpy(_write, pdata, (size_t)(firstcopysize));
-					pdata += firstcopysize;
-					leftcopysize = size - firstcopysize;
-					// 2. 남은거 버퍼의 앞에 복사
-					memcpy(_buff, pdata, (size_t)leftcopysize);
-
-					// _write 포인터 이동
-					_write = _buff + leftcopysize;
-				}
-				else
-				{	// 사이즈가 firstcopysize보다 작거나 같으면 한방에
-					memcpy(_write, pdata, (size_t)size);
-					_write += size;
-					if (_write == _end)
-						_write = _buff;
-				}
-			}
-			return size;
-		}
-
-		//---------------------------------------------------------------
 		// 버퍼를 비웁니다.
 		//---------------------------------------------------------------
 		void ClearBuffer()
@@ -456,36 +313,40 @@ namespace Core
 				return 0;
 			int freesize;
 			int firstmovesize;
-			if (_read > _write)
+			char* read = _read;
+			char* write = _write;
+			if (read > write)
 			{
-				freesize = (int)(_read - _write - 1);
+				freesize = (int)(read - write - 1);
 				// 공간 부족
 				if (freesize < size)
 					return 0;
 
 				// _write 포인터 이동
-				_write += size;
+				write += size;
 			}
 			else
 			{
-				freesize = (int)(_read - _write - 1 + _size);
+				freesize = (int)(read - write - 1 + _size);
 				// 공간 부족
 				if (freesize < size)
 					return 0;
 
-				firstmovesize = (int)(_end - _write);
+				firstmovesize = (int)(_end - write);
 				if (firstmovesize < size)
 				{
 					// _write 포인터 이동 (_buff + leftmovesize)
-					_write = _buff + (size - firstmovesize);
+					write = _buff + (size - firstmovesize);
 				}
 				else
 				{
-					_write += size;
-					if (_write == _end)
-						_write = _buff;
+					write += size;
+					if (write == _end)
+						write = _buff;
 				}
 			}
+			_write = write;
+
 			return size;
 		}
 
@@ -541,14 +402,16 @@ namespace Core
 		//---------------------------------------------------------------
 		int DirectEnqueueSize()
 		{
-			if (_read > _write)
-				return (int)(_read - _write - 1);
+			char* read = _read;
+			char* write = _write;
+			if (read > write)
+				return (int)(read - write - 1);
 			else
 			{
-				if (_read == _buff)
-					return (int)(_end - _write - 1);
+				if (read == _buff)
+					return (int)(_end - write - 1);
 				else
-					return (int)(_end - _write);
+					return (int)(_end - write);
 			}
 		}
 
@@ -558,18 +421,20 @@ namespace Core
 		//---------------------------------------------------------------
 		int DirectDequeueSize()
 		{
-			if (_read > _write)
-				return (int)(_end - _read);
+			char* read = _read;
+			char* write = _write;
+			if (read > write)
+				return (int)(_end - read);
 			else
-				return (int)(_write - _read);
+				return (int)(write - read);
 		}
 
 	private:
-		int _size;
-		char* _buff;
-		char* _end;
-		char* _read;
-		char* _write;
+		int		_size;
+		char*	_buff;
+		char*	_end;
+		char*	_read;
+		char*	_write;
 		SRWLOCK _lock;
 	};
 }

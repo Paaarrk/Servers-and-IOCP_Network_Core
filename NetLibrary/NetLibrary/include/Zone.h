@@ -1,6 +1,5 @@
 #ifndef __ZONE_H__
 #define __ZONE_H__
-#include "Type.h"
 #include "LockFreeQueue.hpp"
 #include "TimerJob.h"
 #include "Job.h"
@@ -30,12 +29,12 @@ namespace Net
 	{
 		friend class CZone;
 	public:
-		void Set(CZoneServer* pZoneServer, CZone* pZone, uint64 zoneId);
+		void Set(CZoneServer* pZoneServer, CZone* pZone, uint64_t zoneId);
 		virtual void Excute();
 	private:
 		CZoneServer* _pZoneServer = nullptr;
 		CZone* _pZone = nullptr;
-		uint64 _zoneId = 0;
+		uint64_t _zoneId = 0;
 	};
 
 
@@ -73,10 +72,10 @@ namespace Net
 		friend class CReferenceZone;
 		friend class CPinnedZoneThreads;
 	public:
-		int32 GetDeltaTime() const { return _updateDeltaTick; }
+		int32_t GetDeltaTime() const { return _updateDeltaTick; }
 		unsigned long GetTickStartTime() const { return _startTime; }
-		int32 GetMaxUsers() const { return _maxUsers; }
-		uint64 GetZoneId() const { return _zoneId; }
+		int32_t GetMaxUsers() const { return _maxUsers; }
+		uint64_t GetZoneId() const { return _zoneId; }
 		CZoneManager* GetZoneManager() const;
 		CZoneServer* GetZoneServer() const { return _myServer; }
 		template <typename F>
@@ -101,7 +100,7 @@ namespace Net
 		virtual void OnMessage(uint64 sessionId, const char* readPtr, int payloadlen) = 0;
 
 		
-		int32 GetSessionCnt() const { return (int32)_sessions->size(); }
+		int32_t GetSessionCnt() const { return (int32)_sessions->size(); }
 	protected:
 #pragma warning(push)
 #pragma warning(disable: 26495) // 생성자대신 Acquire, Release로 멤버 컨트롤
@@ -119,24 +118,24 @@ namespace Net
 		void TickUpdate();
 
 		void SetPinned(int index, int weight);
-		int32 GetWeight() const { return _weight; }
+		int32_t GetWeight() const { return _weight; }
 	private:
 		CZoneServer*						_myServer;
 		unsigned long						_startTime;
-		int32								_updateDeltaTick;
+		int32_t								_updateDeltaTick;
 		unsigned long						_befUpdate;
-		int32								_minimumTick;
+		int32_t								_minimumTick;
 		
 		unsigned long						_refCount;
-		int32								_contentsId;
-		uint64								_zoneId;
-		int32								_maxUsers;
+		int32_t								_contentsId;
+		uint64_t								_zoneId;
+		int32_t								_maxUsers;
 		Core::CLockFreeQueue <Core::IJob*>* _jobQueue;
 		std::shared_ptr<CZoneTimerJob>*		_timerRequest;
-		std::unordered_set<uint64>*			_sessions;
+		std::unordered_set<uint64_t>*			_sessions;
 
-		int32								_pinnedThreadIndex;
-		int32								_weight;
+		int32_t								_pinnedThreadIndex;
+		int32_t								_weight;
 
 	};
 

@@ -151,7 +151,7 @@ void CMonitorConnectorJob::Excute()
 
 	DWORD curTime = timeGetTime();
 	int32 deltaTime = CLIENT_MONITORING_TICK - (int32)(curTime - _startTime);
-	// Log::logging().Log(L"Debug MC", Log::en_SYSTEM, L"[MC excute: %d | deltaTime: %d]", curTime % 10000, deltaTime);
+	
 	if (deltaTime < 0)
 	{
 		_startTime = curTime + CLIENT_MONITORING_TICK;

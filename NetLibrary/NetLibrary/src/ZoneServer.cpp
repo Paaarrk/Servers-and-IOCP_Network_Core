@@ -14,7 +14,6 @@
 #pragma comment(lib, "winmm")
 
 
-#include "ProfilerV2.hpp"
 /////////////////////////////////////////////////////////
 // NetServer
 /////////////////////////////////////////////////////////
@@ -50,7 +49,7 @@ void Net::CZoneServerMonitoringJob::Excute()
 
 	DWORD curTime = timeGetTime();
 	int32 deltaTime = SERVER_MONITORING_TICK - (int32)(curTime - _startTime);
-	//Core::c_syslog::logging().Log(L"Debug NS", Core::c_syslog::en_SYSTEM, L"[NS excute: %d | deltaTime: %d]", curTime % 10000, deltaTime);
+	
 	if (deltaTime < 0)
 	{
 		_startTime = curTime + SERVER_MONITORING_TICK;
@@ -250,15 +249,7 @@ bool Net::CZoneServer::Init(const stServerOpt* pOpt)
 		}
 		_threadNum++;
 
-		// FOR PQCS를 우회
-		// _hThreads[_threadNum] = (HANDLE)_beginthreadex(NULL, NULL, SendThreadProc, this, 0, NULL);
-		// if (_hThreads[_threadNum] == 0)
-		// {
-		// 	int retCreateAcceptThreadErr = errno;
-		// 	Core::c_syslog::logging().Log(TAG_NET, Core::c_syslog::en_ERROR, L"[errno: %d] Create SendThread failed", retCreateAcceptThreadErr);
-		// 	break;
-		// }
-		// _threadNum++;
+		
 
 		return true;
 	} while (0);
@@ -1095,8 +1086,6 @@ void Net::CZoneServer::RequestZoneExcute(uint64 zoneId)
 		_zoneManager.DecreaseRefcount(pZone);
 	}
 
-	//if(zoneId < 70000)
-	//	Core::c_syslog::logging().Log(L"Deb", Core::c_syslog::en_SYSTEM, L"Id: %16llx / time: %20u [run]", zoneId, timeGetTime());
 	pZone->TickUpdate();
 	
 	_zoneManager.DecreaseRefcount(pZone);
@@ -1193,12 +1182,12 @@ unsigned int Net::CZoneServer::NetServerWorkerFunc(void* param)
 				CancelIoEx((HANDLE)pSession->sock, &pSession->recvOl->ol);
 
 				_InterlockedExchange(&pSession->isSending, 0);
-				//nowServer->OnSend(pSession->sessionId, false);
+				
 				nowServer->DecrementRefcount(pSession);
 			}
 			else
 			{
-				//nowServer->OnSend(pSession->sessionId, true);
+				
 				//--------------------------------------------------
 				// 센드 성공! 
 				// . 일단 isSending은 0으로
@@ -1556,9 +1545,6 @@ unsigned int Net::CZoneServer::NetServerAcceptFunc(void* param)
 			}
 			continue;
 		}
-
-		// 이 작업 이제는 InitNewSession에서함
-		//_InterlockedIncrement(&pNewSession->refcount);
 
 		// OnAccept
 		nowServer->OnAccept(pNewSession->sessionId, caddr.sin_addr, pNewSession->ip);
