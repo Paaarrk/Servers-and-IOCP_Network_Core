@@ -1,0 +1,96 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="소스 파일">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="헤더 파일">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="리소스 파일">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="헤더 파일\DB">
+      <UniqueIdentifier>{e59fc63a-74ea-4a2c-90b2-144833f74a37}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\DB">
+      <UniqueIdentifier>{f6b906d9-1177-469e-805f-11c70cf23b5f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Parser">
+      <UniqueIdentifier>{807b63f4-a8bc-4f41-a0ef-1c73cd52587d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\Parser">
+      <UniqueIdentifier>{8a0fa1a8-f756-4e47-9c91-24ee207487d8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\Protocol">
+      <UniqueIdentifier>{ba97f186-5a47-4081-8d6a-0023a7878d4a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Object">
+      <UniqueIdentifier>{0937768a-58ee-4970-84b5-4b20578f3ff6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\Object">
+      <UniqueIdentifier>{e576bcdd-7cbc-40eb-a83a-26fc8c858fbb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\Server">
+      <UniqueIdentifier>{0b1b439b-d540-472e-b2a0-29d979e9d48b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Server">
+      <UniqueIdentifier>{a15eadf6-ee36-4f81-a7e3-4ae78223f05e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Client">
+      <UniqueIdentifier>{78740af5-ff84-47d0-b579-580265e7c6b5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\Client">
+      <UniqueIdentifier>{914bf60d-ed74-4003-8f4b-c95b38dd49c2}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="DBConnector.cpp">
+      <Filter>소스 파일\DB</Filter>
+    </ClCompile>
+    <ClCompile Include="RedisConnector.cpp">
+      <Filter>소스 파일\DB</Filter>
+    </ClCompile>
+    <ClCompile Include="_main.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="21_TextParser.cpp">
+      <Filter>소스 파일\Parser</Filter>
+    </ClCompile>
+    <ClCompile Include="UserV2_Multi.cpp">
+      <Filter>소스 파일\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="LoginServerV1.cpp">
+      <Filter>소스 파일\Server</Filter>
+    </ClCompile>
+    <ClCompile Include="MonitorConnector.cpp">
+      <Filter>소스 파일\Client</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="DBConnector.h">
+      <Filter>헤더 파일\DB</Filter>
+    </ClInclude>
+    <ClInclude Include="RedisConnector.h">
+      <Filter>헤더 파일\DB</Filter>
+    </ClInclude>
+    <ClInclude Include="21_TextParser.h">
+      <Filter>헤더 파일\Parser</Filter>
+    </ClInclude>
+    <ClInclude Include="CommonProtocol.h">
+      <Filter>헤더 파일\Protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="UserV2_Multi.h">
+      <Filter>헤더 파일\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="LoginServerV1.h">
+      <Filter>헤더 파일\Server</Filter>
+    </ClInclude>
+    <ClInclude Include="MonitorConnector.h">
+      <Filter>헤더 파일\Client</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,105 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="소스 파일">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="헤더 파일">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="리소스 파일">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="소스 파일\User">
+      <UniqueIdentifier>{bfe94133-0aee-4c61-a729-004ac4c809f1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\User">
+      <UniqueIdentifier>{7e86e12c-f45f-4202-b517-e132bc72c9ac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\Protocol">
+      <UniqueIdentifier>{0a790485-d038-45d4-b622-2e57f8bb54a8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\Zones">
+      <UniqueIdentifier>{6718c309-8e86-4855-83e1-dd25e85e511d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Zones">
+      <UniqueIdentifier>{0160f4fb-d861-4e19-9a6f-36d1355bd13b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\Contents">
+      <UniqueIdentifier>{a6a65849-5a67-4034-b55f-0a38c8b1dc7b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Contents">
+      <UniqueIdentifier>{7fc0b573-04d2-4236-b80f-00865b939b43}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Client">
+      <UniqueIdentifier>{d67fda7c-1371-47f7-88b1-dfbdc250a535}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\Client">
+      <UniqueIdentifier>{2771ff55-53e5-4913-a5c3-973215e28ce6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Parser">
+      <UniqueIdentifier>{36f828ea-1611-4525-b527-aee40da2d030}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\Parser">
+      <UniqueIdentifier>{7ca9e459-2963-43f6-8a96-53b731f3ed4c}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="_main.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="User.cpp">
+      <Filter>소스 파일\User</Filter>
+    </ClCompile>
+    <ClCompile Include="Zone_Lobby.cpp">
+      <Filter>소스 파일\Zones</Filter>
+    </ClCompile>
+    <ClCompile Include="EchoServer.cpp">
+      <Filter>소스 파일\Contents</Filter>
+    </ClCompile>
+    <ClCompile Include="ContentsManager.cpp">
+      <Filter>소스 파일\Contents</Filter>
+    </ClCompile>
+    <ClCompile Include="Zone_Echo.cpp">
+      <Filter>소스 파일\Zones</Filter>
+    </ClCompile>
+    <ClCompile Include="MonitorConnector.cpp">
+      <Filter>소스 파일\Client</Filter>
+    </ClCompile>
+    <ClCompile Include="21_TextParser.cpp">
+      <Filter>소스 파일\Parser</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Contents.h">
+      <Filter>헤더 파일\Contents</Filter>
+    </ClInclude>
+    <ClInclude Include="User.h">
+      <Filter>헤더 파일\User</Filter>
+    </ClInclude>
+    <ClInclude Include="CommonProtocol.h">
+      <Filter>헤더 파일\Protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="Zone_Lobby.h">
+      <Filter>헤더 파일\Zones</Filter>
+    </ClInclude>
+    <ClInclude Include="EchoServer.h">
+      <Filter>헤더 파일\Contents</Filter>
+    </ClInclude>
+    <ClInclude Include="ContentsManager.h">
+      <Filter>헤더 파일\Contents</Filter>
+    </ClInclude>
+    <ClInclude Include="Zone_Echo.h">
+      <Filter>헤더 파일\Zones</Filter>
+    </ClInclude>
+    <ClInclude Include="MonitorConnector.h">
+      <Filter>헤더 파일\Client</Filter>
+    </ClInclude>
+    <ClInclude Include="21_TextParser.h">
+      <Filter>헤더 파일\Parser</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

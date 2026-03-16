@@ -1,0 +1,111 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="소스 파일">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="헤더 파일">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="리소스 파일">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="소스 파일\src">
+      <UniqueIdentifier>{79e41cba-7c0b-46b6-b4b6-9a50ed73d722}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\include">
+      <UniqueIdentifier>{84b2f583-3e5c-4445-929d-de6111bab9b6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\include\Zone">
+      <UniqueIdentifier>{e0dd3dd0-2e25-4c43-9144-2635cc9e1fc9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\src\Zone">
+      <UniqueIdentifier>{446a17bb-d984-496f-994e-b33699bc9359}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\src\Net">
+      <UniqueIdentifier>{06de570e-dbe0-4bf5-ac76-b7ed3fb3f36b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\include\Net">
+      <UniqueIdentifier>{03361980-306c-4309-8eb4-92b83789fcc5}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\TlsPacket.hpp">
+      <Filter>헤더 파일\include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\EventObject.hpp">
+      <Filter>헤더 파일\include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\NetBase.h">
+      <Filter>헤더 파일\include\Net</Filter>
+    </ClInclude>
+    <ClInclude Include="include\NetClient.h">
+      <Filter>헤더 파일\include\Net</Filter>
+    </ClInclude>
+    <ClInclude Include="include\NetCrypto.h">
+      <Filter>헤더 파일\include\Net</Filter>
+    </ClInclude>
+    <ClInclude Include="include\NetProcess.h">
+      <Filter>헤더 파일\include\Net</Filter>
+    </ClInclude>
+    <ClInclude Include="include\NetProtocol.h">
+      <Filter>헤더 파일\include\Net</Filter>
+    </ClInclude>
+    <ClInclude Include="include\NetServer.h">
+      <Filter>헤더 파일\include\Net</Filter>
+    </ClInclude>
+    <ClInclude Include="include\NetSession.h">
+      <Filter>헤더 파일\include\Net</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Zone.h">
+      <Filter>헤더 파일\include\Zone</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ZoneManager.h">
+      <Filter>헤더 파일\include\Zone</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ZoneServer.h">
+      <Filter>헤더 파일\include\Zone</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ZoneSession.h">
+      <Filter>헤더 파일\include\Zone</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ZoneType.h">
+      <Filter>헤더 파일\include\Zone</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\Zone.cpp">
+      <Filter>소스 파일\src\Zone</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ZoneManager.cpp">
+      <Filter>소스 파일\src\Zone</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ZoneServer.cpp">
+      <Filter>소스 파일\src\Zone</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ZoneSession.cpp">
+      <Filter>소스 파일\src\Zone</Filter>
+    </ClCompile>
+    <ClCompile Include="src\NetBase.cpp">
+      <Filter>소스 파일\src\Net</Filter>
+    </ClCompile>
+    <ClCompile Include="src\NetClient.cpp">
+      <Filter>소스 파일\src\Net</Filter>
+    </ClCompile>
+    <ClCompile Include="src\NetCrypto.cpp">
+      <Filter>소스 파일\src\Net</Filter>
+    </ClCompile>
+    <ClCompile Include="src\NetProcess.cpp">
+      <Filter>소스 파일\src\Net</Filter>
+    </ClCompile>
+    <ClCompile Include="src\NetServer.cpp">
+      <Filter>소스 파일\src\Net</Filter>
+    </ClCompile>
+    <ClCompile Include="src\NetSession.cpp">
+      <Filter>소스 파일\src\Net</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

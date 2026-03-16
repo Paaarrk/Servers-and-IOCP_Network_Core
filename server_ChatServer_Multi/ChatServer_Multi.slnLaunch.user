@@ -1,0 +1,22 @@
+[
+  {
+    "Name": "새 프로필",
+    "Projects": [
+      {
+        "Path": "ChatServer_Multi\\ChatServer_Multi.vcxproj",
+        "Action": "Start",
+        "DebugTarget": "로컬 Windows 디버거"
+      },
+      {
+        "Path": "..\\Core\\Core\\Core.vcxproj",
+        "Action": "Start",
+        "DebugTarget": "로컬 Windows 디버거"
+      },
+      {
+        "Path": "..\\NetLibrary\\NetLibrary\\NetLibrary.vcxproj",
+        "Action": "Start",
+        "DebugTarget": "로컬 Windows 디버거"
+      }
+    ]
+  }
+]
