@@ -4,6 +4,13 @@ IOCP기반 네트워크 코어 <br>
  -> lock-free 자료구조 사용 (queue, stack, tls memory pool) <br>
  -> 각 서버는 일주일간 안정적으로 동작 [[서버 안정성 테스트 결과]](./server_7days_result/result.md)
 
+# ThirdPartyLib
+1) Tacopie
+2) cppredis
+3) MySQL Connector C
+
+# 현재 리팩토링 진행중인 프로젝트입니다.
+https://github.com/Paaarrk/G_O_GameProject
 
 # Core
 자료 구조들을 모아둔 라이브러리 <br>
