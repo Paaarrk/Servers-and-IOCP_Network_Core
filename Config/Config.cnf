@@ -81,13 +81,13 @@ LOGIN_SERVER
 	port = 7000
 
 	/* 게임서버ip */
-	gameIP = "106.245.38.102"
+	gameIP = "127.0.0.1"
 	
 	/* 게임서버port */
 	gamePort = 10000
 
 	/* 채팅서버ip */
-	chatIP = "106.245.38.102"
+	chatIP = "127.0.0.1"
 
 	/* 채팅서버 더미ip 0*/
 	dummyOne = "127.0.0.1"
